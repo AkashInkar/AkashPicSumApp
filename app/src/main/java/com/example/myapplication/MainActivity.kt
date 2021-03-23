@@ -2,7 +2,11 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.view.Window
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,13 +23,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         layoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         layoutBinding?.apply {
             lifecycleOwner = this@MainActivity
             viewModel = ViewModelProvider(this@MainActivity).get(AuthorViewModel::class.java)
+           // requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setSupportActionBar(maintoolbar)
         }
         viewModel?.apiCalling()
         viewModelOperation()
+
     }
 
 
@@ -68,6 +76,21 @@ class MainActivity : AppCompatActivity() {
             this.rvAssigment.adapter = adapter
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when(id){
+            R.id.menuCart ->{
+                Toast.makeText(this,"Demo for the test",Toast.LENGTH_SHORT).show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
