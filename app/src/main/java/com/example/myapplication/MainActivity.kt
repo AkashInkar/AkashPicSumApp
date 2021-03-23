@@ -6,7 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.MenuItemCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -80,6 +83,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu,menu)
+        try {
+            val item = menu!!.findItem(R.id.menuCart)
+            MenuItemCompat.setActionView(item,R.layout.menu_file_layout)
+            val notifCount = MenuItemCompat.getActionView(item) as RelativeLayout
+
+            val tv = notifCount.findViewById<View>(R.id.actionbar_notifcation_textview) as TextView
+            tv.text = "99"
+
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
         return super.onCreateOptionsMenu(menu)
     }
 
